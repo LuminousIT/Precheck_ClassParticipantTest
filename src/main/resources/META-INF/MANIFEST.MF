@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Main-Class: com.example.classparticipantstest.HelloApplication
+Class-Path: formsfx-core-11.5.0.jar validatorfx-0.4.0.jar postgresql-42.
+ 6.0.jar javafx-base-18.0.2.jar postgresql-42.6.0.jar checker-qual-3.31.
+ 0.jar bootstrapfx-core-0.4.0.jar mysql-connector-java-8.0.28.jar protob
+ uf-java-3.11.4.jar javafx-controls-18.0.2-mac-aarch64.jar javafx-fxml-1
+ 8.0.2-mac-aarch64.jar javafx-graphics-18.0.2.jar javafx-controls-18.0.2
+ .jar controlsfx-11.1.2.jar javafx-base-18.0.2-mac-aarch64.jar javafx-gr
+ aphics-18.0.2-mac-aarch64.jar javafx-fxml-18.0.2.jar
+

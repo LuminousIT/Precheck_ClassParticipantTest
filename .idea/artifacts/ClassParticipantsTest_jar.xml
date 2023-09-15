@@ -1,0 +1,25 @@
+<component name="ArtifactManager">
+  <artifact name="ClassParticipantsTest:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ClassParticipantsTest_jar</output-path>
+    <root id="root">
+      <element id="archive" name="ClassParticipantsTest.jar">
+        <element id="module-output" name="ClassParticipantsTest" />
+      </element>
+      <element id="library" level="project" name="Maven: com.dlsc.formsfx:formsfx-core:11.5.0" />
+      <element id="library" level="project" name="Maven: net.synedra:validatorfx:0.4.0" />
+      <element id="file-copy" path="$PROJECT_DIR$/postgresql-42.6.0.jar" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:18.0.2" />
+      <element id="library" level="project" name="postgresql" />
+      <element id="library" level="project" name="Maven: org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0" />
+      <element id="library" level="project" name="mysql.connector.java" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:mac-aarch64:18.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:mac-aarch64:18.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:18.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:18.0.2" />
+      <element id="library" level="project" name="Maven: org.controlsfx:controlsfx:11.1.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:mac-aarch64:18.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:mac-aarch64:18.0.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:18.0.2" />
+    </root>
+  </artifact>
+</component>
