@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.*;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ClassParticipantController implements Initializable {
@@ -43,6 +44,8 @@ public class ClassParticipantController implements Initializable {
 
     private String[] sports = {"", "Basketball", "Football", "Volleyball", "Hockey"};
     private String[] awards = {"", "National Best", "Regional Best", "Second Best", "No award"};
+    
+    private ArrayList<Participant> participants = new ArrayList<Participant>();
 
     @FXML
     private TableView tableView;
@@ -54,7 +57,8 @@ public class ClassParticipantController implements Initializable {
     private ComboBox comboFilterAward;
     @FXML
     private Button filterBtn;
-
+    @FXML
+    private Button viewAllBtn;
 
 
     public ClassParticipantController() {
@@ -80,7 +84,7 @@ public class ClassParticipantController implements Initializable {
     public Connection getConnection(){
         Connection connection;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/classparticipants", "postgres", "luminous");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/classparticipants", "postgres", "");
             return connection;
         }catch(Exception ex) {
             System.out.println("Error DB Connection: " + ex.getMessage());
@@ -107,6 +111,8 @@ public class ClassParticipantController implements Initializable {
         }
         return participantsList;
     }
+    
+  
 
     public void showParticipants(){
         ObservableList<Participant> list = getParticipantList();
@@ -119,6 +125,8 @@ public class ClassParticipantController implements Initializable {
 
         tableView.setItems(list);
     }
+    
+   
 
     public void showFilterParticipants(){
         ObservableList<Participant> list = filterParticipant();
@@ -132,12 +140,14 @@ public class ClassParticipantController implements Initializable {
         tableView.setItems(list);
     }
 
+   
 
     public void createParticipant(){
         String query = "INSERT INTO participants VALUES (" + tfID.getText() + ",'" + tfName.getText() + "','" + tfSurname.getText() + "'," + tfAge.getText() + ",'" + comboAward.getValue() + "','" + comboSport.getValue() + "')";
         executeQuery(query);
         showParticipants();
     }
+ 
 
     public void executeQuery(String query){
         Connection connection = getConnection();
@@ -173,6 +183,68 @@ public class ClassParticipantController implements Initializable {
         return participantsList;
 
     }
+    
+    
+    public void createParticipantAsList() {
+    	Participant newParticipant = new Participant(Integer.parseInt(tfID.getText()), tfName.getText().toString(), tfSurname.getText().toString(), Integer.parseInt(tfAge.getText().toString()), comboAward.getValue().toString(), comboSport.getValue().toString());
+    	participants.add(newParticipant);
+    	showParticipantsFromList();
+    }
+    
+    public void showFilterParticipantsFromList() {
+   	 ObservableList<Participant> list = filterParticipantFromList();
+        colID.setCellValueFactory(new PropertyValueFactory<Participant, Integer>("matricID"));
+        colName.setCellValueFactory(new PropertyValueFactory<Participant, String>("firstname"));
+        colSurname.setCellValueFactory(new PropertyValueFactory<Participant, String>("surname"));
+        colAge.setCellValueFactory(new PropertyValueFactory<Participant, Integer>("age"));
+        colAward.setCellValueFactory(new PropertyValueFactory<Participant, String>("award"));
+        colSport.setCellValueFactory(new PropertyValueFactory<Participant, String >("sportType"));
+
+        tableView.setItems(list);
+   }
+    public void showParticipantsFromList() {
+    	ObservableList<Participant> list = getParticipantListFromArrayList();
+    	colID.setCellValueFactory(new PropertyValueFactory<Participant, Integer>("matricID"));
+        colName.setCellValueFactory(new PropertyValueFactory<Participant, String>("firstname"));
+        colSurname.setCellValueFactory(new PropertyValueFactory<Participant, String>("surname"));
+        colAge.setCellValueFactory(new PropertyValueFactory<Participant, Integer>("age"));
+        colAward.setCellValueFactory(new PropertyValueFactory<Participant, String>("award"));
+        colSport.setCellValueFactory(new PropertyValueFactory<Participant, String >("sportType"));
+
+        tableView.setItems(list);
+    }
+    
+    public ObservableList<Participant> getParticipantListFromArrayList(){
+  	  ObservableList<Participant> participantsList = FXCollections.observableArrayList();
+  	  try {
+  		  for (int i = 0; i < participants.size(); i++) {
+  			  participantsList.add(participants.get(i));
+  		  }
+  	  }catch(Exception ex) {
+  		  ex.printStackTrace();
+  	  }
+  	  return participantsList;
+  }
+    
+    public ObservableList<Participant> filterParticipantFromList(){
+    	String awardFilterValue = (String) comboFilterAward.getValue();
+    	String sportFilterValue = (String) comboFilterSport.getValue();
+    	System.out.println("award filter value " + awardFilterValue + " and sport " + sportFilterValue);
+        ObservableList<Participant> participantsList = FXCollections.observableArrayList();
+       
+        try{
+        	for (int i = 0; i < participants.size(); i++) {
+        		System.out.println("awards " + participants.get(i).getAward().toString());
+        		if ( participants.get(i).getAward().toString().equals(sportFilterValue) || participants.get(i).getSportType().equals(sportFilterValue)) {
+        			participantsList.add(participants.get(i));
+        		}
+        			
+  		  }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return participantsList;
+    }
 
     @FXML
     public void onSportSelect(ActionEvent actionEvent) {
@@ -187,7 +259,8 @@ public class ClassParticipantController implements Initializable {
     @FXML
     public void handleCreateParticipant(ActionEvent actionEvent) {
         if (actionEvent.getSource() == createBtn) {
-            createParticipant();
+//            createParticipant(); // for DB
+            createParticipantAsList();
         }
     }
 
@@ -201,7 +274,15 @@ public class ClassParticipantController implements Initializable {
     @FXML
     public void onFilter(ActionEvent actionEvent) {
         if (actionEvent.getSource() == filterBtn){
-            showFilterParticipants();
+//            showFilterParticipants(); // for DB
+        	showFilterParticipantsFromList();
+        }
+    }
+    
+    @FXML
+    public void onViewAll(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == viewAllBtn){
+        	showParticipantsFromList();
         }
     }
 }

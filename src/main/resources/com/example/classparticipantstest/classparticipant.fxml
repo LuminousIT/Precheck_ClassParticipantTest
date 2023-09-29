@@ -61,12 +61,13 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="78.0" layoutY="327.0" prefHeight="46.0" prefWidth="465.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutX="78.0" layoutY="327.0" prefHeight="46.0" prefWidth="485.0" spacing="5.0">
          <children>
             <Label text="Filter By" />
             <ComboBox fx:id="comboFilterSport" prefWidth="150.0" promptText="Sport" />
             <ComboBox fx:id="comboFilterAward" prefWidth="150.0" promptText="Award" />
             <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#onFilter" text="Search" />
+             <Button fx:id="viewAllBtn" mnemonicParsing="false" onAction="#onViewAll" text="View All" />
          </children></HBox>
    </children>
 </AnchorPane>
